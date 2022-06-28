@@ -44,7 +44,9 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'users'
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -130,3 +132,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# USERS
+# Como django tiene una gestion de usuarios por defecto para su backoffice es recomendable modificarla
+# para que sea algo más difícil para los atacantes saver como funciona internamente nuestra app
+AUTH_USER_MODEL = 'users.User'

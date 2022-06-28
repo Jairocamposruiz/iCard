@@ -4,12 +4,11 @@ import "./AdminLayout.scss";
 
 interface Props {
   children: ReactNode;
-  className?: String;
 }
 
-export const AdminLayout = ({ children, className }: Props) => {
+export const AdminLayout = ({ children }: Props) => {
   return (
-    <div className={`${className}`}>
+    <div>
       <p>Admin Layout</p>
       {children}
     </div>

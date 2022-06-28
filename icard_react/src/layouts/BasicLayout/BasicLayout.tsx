@@ -1,15 +1,15 @@
 import { ReactNode } from "react";
 
-import "./ClientLayout.scss";
+import "./BasicLayout.scss";
 
 interface Props {
   children: ReactNode;
 }
 
-export const ClientLayout = ({ children }: Props) => {
+export const BasicLayout = ({ children }: Props) => {
   return (
     <div>
-      <p>Client Layout</p>
+      <p>Basic Layout</p>
       {children}
     </div>
   );
