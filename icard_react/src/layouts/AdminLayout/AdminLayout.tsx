@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 import { useAuth } from "../../context";
 import { LoginAdmin } from "../../pages/Admin";
+import { TopMenu, SideMenu } from "../../components/Admin";
 import "./AdminLayout.scss";
 
 interface Props {
@@ -16,9 +17,14 @@ export const AdminLayout = ({ children }: Props) => {
   }
 
   return (
-    <div>
-      <p>Admin Layout</p>
-      {children}
+    <div className="admin-layout">
+      <div className="admin-layout__menu">
+        <TopMenu />
+      </div>
+
+      <div className="admin-layout__content">
+        <SideMenu>{children}</SideMenu>
+      </div>
     </div>
   );
 };

@@ -41,3 +41,18 @@ export const getMeApi = async (token: Token): Promise<User> => {
     throw error;
   }
 };
+
+export const getUsersApi = async (token: Token): Promise<User[]> => {
+  try {
+    const url = `${config.baseApi}/api/users/`;
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, params);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};

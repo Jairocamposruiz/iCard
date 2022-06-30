@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: Props) => {
         login(token);
       }
     })();
-  }, [login]);
+  }, []);
 
   return (
     <AuthContext.Provider value={valueContext}>{children}</AuthContext.Provider>
