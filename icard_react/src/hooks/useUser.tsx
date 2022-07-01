@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-import { getMeApi, getUsersApi } from "../api";
+import {
+  getMeApi,
+  getUsersApi,
+  addUserApi,
+  editUserApi,
+  deleteUserApi,
+} from "../api";
 import { useAuth } from "../context";
 
 export const useUser = () => {
@@ -30,11 +36,50 @@ export const useUser = () => {
     }
   };
 
+  const addUser = async (data: CreateUser) => {
+    try {
+      setLoading(true);
+      await addUserApi(data, auth!.token);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const editUser = async (id: number, data: EditUser) => {
+    try {
+      setLoading(true);
+      await editUserApi(id, data, auth!.token);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const deleteUser = async (id: number) => {
+    try {
+      setLoading(true);
+      await deleteUserApi(id, auth!.token);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return {
     loading,
     error,
     users,
     getMe,
     getUsers,
+    addUser,
+    editUser,
+    deleteUser,
   };
 };
