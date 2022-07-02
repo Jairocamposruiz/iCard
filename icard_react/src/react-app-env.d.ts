@@ -1,6 +1,7 @@
 /// <reference types="react-scripts" />
 
 type Token = string;
+type Url = string;
 
 interface User {
   id: number;
@@ -15,6 +16,16 @@ interface User {
 interface CreateUser extends Omit<User, "id"> {}
 
 interface EditUser extends Partial<Omit<User, "id">> {}
+
+interface Category {
+  id: number;
+  title: string;
+  image: Url;
+}
+
+interface CreateCategory extends Omit<Category, "id"> {}
+
+interface EditCategory extends Partial<Omit<Category, "id">> {}
 
 interface Auth {
   token: Token;

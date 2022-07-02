@@ -1,5 +1,5 @@
 import { AdminLayout } from "../layouts";
-import { HomeAdmin, UsersAdmin } from "../pages/Admin";
+import { HomeAdmin, UsersAdmin, CategoriesAdmin } from "../pages/Admin";
 import { RouteConfigAdmin } from "../interfaces";
 
 export const routesAdmin: RouteConfigAdmin[] = [
@@ -30,7 +30,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
   {
     path: "/admin/categories",
     layout: AdminLayout,
-    component: HomeAdmin,
+    component: CategoriesAdmin,
     icon: "folder",
     label: "Categorias",
     needStaffPermissions: false,

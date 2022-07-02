@@ -4,3 +4,5 @@ export * from "./SideMenu/SideMenu";
 export * from "./HeaderPage/HeaderPage";
 export * from "./TableUsers/TableUsers";
 export * from "./AddEditUserForm/AddEditUserForm";
+export * from "./TableCategory/TableCategory";
+export * from "./AddEditCategoryForm/AddEditCategoryForm";
