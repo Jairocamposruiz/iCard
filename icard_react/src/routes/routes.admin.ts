@@ -1,5 +1,10 @@
 import { AdminLayout } from "../layouts";
-import { HomeAdmin, UsersAdmin, CategoriesAdmin } from "../pages/Admin";
+import {
+  HomeAdmin,
+  UsersAdmin,
+  CategoriesAdmin,
+  ProductsAdmin,
+} from "../pages/Admin";
 import { RouteConfigAdmin } from "../interfaces";
 
 export const routesAdmin: RouteConfigAdmin[] = [
@@ -38,7 +43,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
   {
     path: "/admin/products",
     layout: AdminLayout,
-    component: HomeAdmin,
+    component: ProductsAdmin,
     icon: "cart",
     label: "Productos",
     needStaffPermissions: false,

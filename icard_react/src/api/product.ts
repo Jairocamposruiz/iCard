@@ -1,8 +1,8 @@
 import { config } from "../config";
 
-export const getCategoriesApi = async (): Promise<Category[]> => {
+export const getProductsApi = async (): Promise<Product[]> => {
   try {
-    const url = `${config.baseApi}/api/categories/`;
+    const url = `${config.baseApi}/api/products/`;
     const response = await fetch(url);
     return await response.json();
   } catch (error) {
@@ -10,16 +10,19 @@ export const getCategoriesApi = async (): Promise<Category[]> => {
   }
 };
 
-export const addCategoryApi = async (
-  data: CreateCategory,
+export const addProductApi = async (
+  data: CreateProduct,
   token: Token
-): Promise<Category> => {
+): Promise<Product> => {
   try {
     const formData = new FormData();
-    formData.append("image", data.image);
     formData.append("title", data.title);
+    formData.append("image", data.image);
+    formData.append("price", data.price.toString());
+    formData.append("active", data.active as any);
+    formData.append("category", data.category.toString());
 
-    const url = `${config.baseApi}/api/categories/`;
+    const url = `${config.baseApi}/api/products/`;
     const params = {
       method: "POST",
       headers: {
@@ -35,21 +38,20 @@ export const addCategoryApi = async (
   }
 };
 
-export const editCategoryApi = async (
+export const editProductApi = async (
   id: ID,
-  data: EditCategory,
+  data: EditProduct,
   token: Token
-): Promise<Category> => {
+): Promise<Product> => {
   try {
     const formData = new FormData();
-    if (data.image) {
-      formData.append("image", data.image);
-    }
-    if (data.title) {
-      formData.append("title", data.title);
-    }
+    if (!!data.title) formData.append("title", data.title);
+    if (!!data.image) formData.append("image", data.image);
+    if (!!data.price) formData.append("price", data.price.toString());
+    formData.append("active", data.active as any);
+    if (!!data.category) formData.append("category", data.category.toString());
 
-    const url = `${config.baseApi}/api/categories/${id}/`;
+    const url = `${config.baseApi}/api/products/${id}/`;
     const params = {
       method: "PATCH",
       headers: {
@@ -65,9 +67,9 @@ export const editCategoryApi = async (
   }
 };
 
-export const deleteCategoryApi = async (id: ID, token: Token) => {
+export const deleteProductApi = async (id: ID, token: Token) => {
   try {
-    const url = `${config.baseApi}/api/categories/${id}/`;
+    const url = `${config.baseApi}/api/products/${id}/`;
     const params = {
       method: "DELETE",
       headers: {

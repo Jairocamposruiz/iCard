@@ -45,11 +45,13 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
+    'django_filters',
 ]
 
 LOCAL_APPS = [
     'users',
-    'categories'
+    'categories',
+    'products',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

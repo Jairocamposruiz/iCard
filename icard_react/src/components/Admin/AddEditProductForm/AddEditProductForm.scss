@@ -1,0 +1,17 @@
+.add-edit-product-form {
+  &__active {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .ui.image {
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+
+  .ui.button.primary {
+    margin-top: 50px;
+  }
+}

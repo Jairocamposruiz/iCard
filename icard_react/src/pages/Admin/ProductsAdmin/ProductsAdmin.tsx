@@ -3,19 +3,19 @@ import { Loader } from "semantic-ui-react";
 import { toast } from "react-toastify";
 
 import {
-  AddEditCategoryForm,
   HeaderPage,
-  TableCategory,
+  TableProducts,
+  AddEditProductForm,
 } from "../../../components/Admin";
 import { BasicModal } from "../../../components/Common";
-import { useCategory } from "../../../hooks";
-import "./CategoriesAdmin.scss";
+import { useProduct } from "../../../hooks";
+import "./ProductsAdmin.scss";
 
-export const CategoriesAdmin = () => {
+export const ProductsAdmin = () => {
   const [titleModal, setTitleModal] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [contentModal, setContentModal] = useState<ReactNode>(<></>);
-  const { getCategories, categories, loading, deleteCategory } = useCategory();
+  const { loading, products, getProducts, deleteProduct } = useProduct();
   const [reFetch, setReFetch] = useState(false);
 
   const openCloseModal = () => {
@@ -26,36 +26,36 @@ export const CategoriesAdmin = () => {
     setReFetch((prevState) => !prevState);
   };
 
-  const addCategory = () => {
-    setTitleModal("Nueva Categoría");
+  const addProduct = () => {
+    setTitleModal("Nuevo Producto");
     setContentModal(
-      <AddEditCategoryForm onClose={openCloseModal} onReFetch={onReFetch} />
+      <AddEditProductForm onClose={openCloseModal} onReFetch={onReFetch} />
     );
     openCloseModal();
   };
 
-  const updateCategory = (category: Category) => {
-    setTitleModal(`Actualizar Categoría: ${category.title}`);
+  const updateProduct = (product: Product) => {
+    setTitleModal(`Actualizar Producto: ${product.title}`);
     setContentModal(
-      <AddEditCategoryForm
+      <AddEditProductForm
         onClose={openCloseModal}
         onReFetch={onReFetch}
-        category={category}
+        product={product}
       />
     );
     openCloseModal();
   };
 
-  const onDeleteCategory = async (category: Category) => {
+  const onDeleteProduct = async (product: Product) => {
     const result = window.confirm(
-      `¿Desea eliminar la categoría: ${category.title}?`
+      `¿Desea eliminar el producto: ${product.title}?`
     );
     if (!result) return;
 
     try {
-      await deleteCategory(category.id);
+      await deleteProduct(product.id);
       onReFetch();
-      toast.success("Categoría eliminada correctamente.");
+      toast.success("Producto eliminado correctamente.");
     } catch (e) {
       const error = e as Error;
       toast.error(error.message);
@@ -63,25 +63,25 @@ export const CategoriesAdmin = () => {
   };
 
   useEffect(() => {
-    getCategories();
+    getProducts();
   }, [reFetch]);
 
   return (
     <>
       <HeaderPage
-        title={"Categorías"}
-        btnTitle={"Nueva Categoría"}
-        btnClick={addCategory}
+        title="Productos"
+        btnTitle="Nuevo producto"
+        btnClick={addProduct}
       />
       {loading ? (
         <Loader active inline="centered">
           Cargando...
         </Loader>
       ) : (
-        <TableCategory
-          categories={categories}
-          updateCategory={updateCategory}
-          onDeleteCategory={onDeleteCategory}
+        <TableProducts
+          products={products}
+          onDeleteProduct={onDeleteProduct}
+          updateProduct={updateProduct}
         />
       )}
       <BasicModal

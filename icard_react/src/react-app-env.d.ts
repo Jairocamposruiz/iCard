@@ -2,9 +2,15 @@
 
 type Token = string;
 type Url = string;
+type ID = number;
+
+interface Auth {
+  token: Token;
+  me: User;
+}
 
 interface User {
-  id: number;
+  id: ID;
   username: string;
   first_name: string;
   last_name: string;
@@ -15,19 +21,33 @@ interface User {
 
 interface CreateUser extends Omit<User, "id"> {}
 
-interface EditUser extends Partial<Omit<User, "id">> {}
+interface EditUser extends Partial<CreateUser> {}
 
 interface Category {
-  id: number;
+  id: ID;
   title: string;
   image: Url;
 }
 
-interface CreateCategory extends Omit<Category, "id"> {}
-
-interface EditCategory extends Partial<Omit<Category, "id">> {}
-
-interface Auth {
-  token: Token;
-  me: User;
+interface CreateCategory extends Omit<Category, "id" | "image"> {
+  image: File;
 }
+
+interface EditCategory extends Partial<CreateCategory> {}
+
+interface Product {
+  id: ID;
+  title: string;
+  image: Url;
+  price: number;
+  active: boolean;
+  category: ID;
+  category_data: Category;
+}
+
+interface CreateProduct
+  extends Omit<Product, "id" | "image" | "category_data"> {
+  image: File;
+}
+
+interface EditProduct extends Partial<CreateProduct> {}

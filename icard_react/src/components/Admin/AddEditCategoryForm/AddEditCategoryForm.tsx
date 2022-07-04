@@ -32,12 +32,13 @@ export const AddEditCategoryForm = ({
     onSubmit: async (formValues) => {
       try {
         if (!category) {
-          await addCategory(formValues);
+          await addCategory(formValues as CreateCategory);
           toast.success("Categoria creado correctamente.");
         } else {
-          await editCategory(category.id, formValues);
+          await editCategory(category.id, formValues as EditCategory);
           toast.success("Categoria actualizado correctamente.");
         }
+
         onReFetch();
         onClose();
       } catch (e) {
@@ -98,7 +99,7 @@ export const AddEditCategoryForm = ({
 const initialValues = (category?: Category) => {
   return {
     title: category?.title || "",
-    image: "",
+    image: "" as unknown,
   };
 };
 

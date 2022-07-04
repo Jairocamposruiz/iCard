@@ -1,24 +1,24 @@
 import { useState } from "react";
 
 import {
-  addCategoryApi,
-  getCategoriesApi,
-  editCategoryApi,
-  deleteCategoryApi,
+  getProductsApi,
+  addProductApi,
+  editProductApi,
+  deleteProductApi,
 } from "../api";
 import { useAuth } from "../context";
 
-export const useCategory = () => {
+export const useProduct = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const { auth } = useAuth();
 
-  const getCategories = async () => {
+  const getProducts = async () => {
     try {
       setLoading(true);
-      const response = await getCategoriesApi();
-      setCategories(response);
+      const response = await getProductsApi();
+      setProducts(response);
       setLoading(false);
     } catch (e) {
       const error = e as Error;
@@ -27,10 +27,10 @@ export const useCategory = () => {
     }
   };
 
-  const addCategory = async (data: CreateCategory) => {
+  const addProduct = async (data: CreateProduct) => {
     try {
       setLoading(true);
-      await addCategoryApi(data, auth!.token);
+      await addProductApi(data, auth!.token);
       setLoading(false);
     } catch (e) {
       const error = e as Error;
@@ -39,10 +39,10 @@ export const useCategory = () => {
     }
   };
 
-  const editCategory = async (id: ID, data: EditCategory) => {
+  const editProduct = async (id: ID, data: EditProduct) => {
     try {
       setLoading(true);
-      await editCategoryApi(id, data, auth!.token);
+      await editProductApi(id, data, auth!.token);
       setLoading(false);
     } catch (e) {
       const error = e as Error;
@@ -51,10 +51,10 @@ export const useCategory = () => {
     }
   };
 
-  const deleteCategory = async (id: ID) => {
+  const deleteProduct = async (id: ID) => {
     try {
       setLoading(true);
-      await deleteCategoryApi(id, auth!.token);
+      await deleteProductApi(id, auth!.token);
       setLoading(false);
     } catch (e) {
       const error = e as Error;
@@ -66,10 +66,10 @@ export const useCategory = () => {
   return {
     loading,
     error,
-    categories,
-    getCategories,
-    addCategory,
-    editCategory,
-    deleteCategory,
+    products,
+    getProducts,
+    addProduct,
+    editProduct,
+    deleteProduct,
   };
 };

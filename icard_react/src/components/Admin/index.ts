@@ -6,3 +6,5 @@ export * from "./TableUsers/TableUsers";
 export * from "./AddEditUserForm/AddEditUserForm";
 export * from "./TableCategory/TableCategory";
 export * from "./AddEditCategoryForm/AddEditCategoryForm";
+export * from "./TableProducts/TableProducts";
+export * from "./AddEditProductForm/AddEditProductForm";
