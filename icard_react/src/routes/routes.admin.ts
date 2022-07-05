@@ -1,10 +1,11 @@
 import { AdminLayout } from "../layouts";
 import {
-  HomeAdmin,
+  OrdersAdmin,
   UsersAdmin,
   CategoriesAdmin,
   ProductsAdmin,
   TablesAdmin,
+  TableDetailsAdmin,
 } from "../pages/Admin";
 import { RouteConfigAdmin } from "../interfaces";
 
@@ -12,10 +13,11 @@ export const routesAdmin: RouteConfigAdmin[] = [
   {
     path: "/admin",
     layout: AdminLayout,
-    component: HomeAdmin,
+    component: OrdersAdmin,
     icon: "home",
     label: "Pedidos",
     needStaffPermissions: false,
+    showInMenu: true,
   },
   {
     path: "/admin/tables",
@@ -24,14 +26,16 @@ export const routesAdmin: RouteConfigAdmin[] = [
     icon: "table",
     label: "Mesas",
     needStaffPermissions: false,
+    showInMenu: true,
   },
   {
     path: "/admin/payments-history",
     layout: AdminLayout,
-    component: HomeAdmin,
+    component: OrdersAdmin,
     icon: "history",
     label: "Historial de pagos",
     needStaffPermissions: false,
+    showInMenu: true,
   },
   {
     path: "/admin/categories",
@@ -40,6 +44,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
     icon: "folder",
     label: "Categorias",
     needStaffPermissions: false,
+    showInMenu: true,
   },
   {
     path: "/admin/products",
@@ -48,6 +53,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
     icon: "cart",
     label: "Productos",
     needStaffPermissions: false,
+    showInMenu: true,
   },
   {
     path: "/admin/users",
@@ -56,5 +62,15 @@ export const routesAdmin: RouteConfigAdmin[] = [
     icon: "users",
     label: "Usuarios",
     needStaffPermissions: true,
+    showInMenu: true,
+  },
+  {
+    path: "/admin/table/:id",
+    layout: AdminLayout,
+    component: TableDetailsAdmin,
+    icon: "table",
+    label: "T",
+    needStaffPermissions: false,
+    showInMenu: false,
   },
 ];

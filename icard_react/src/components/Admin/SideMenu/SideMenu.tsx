@@ -25,19 +25,21 @@ const MenuLeft = () => {
 
   return (
     <Menu fixed="left" borderless className="side" vertical>
-      {routesAdmin.map(({ path, icon, label, needStaffPermissions }, index) => {
-        if (!needStaffPermissions || auth!.me.is_staff)
-          return (
-            <Menu.Item
-              key={index}
-              as={Link}
-              to={path}
-              active={pathname === path}
-            >
-              <Icon name={icon} /> {label}
-            </Menu.Item>
-          );
-      })}
+      {routesAdmin.map(
+        ({ path, icon, label, needStaffPermissions, showInMenu }, index) => {
+          if ((!needStaffPermissions || auth!.me.is_staff) && showInMenu)
+            return (
+              <Menu.Item
+                key={index}
+                as={Link}
+                to={path}
+                active={pathname === path}
+              >
+                <Icon name={icon} /> {label}
+              </Menu.Item>
+            );
+        }
+      )}
     </Menu>
   );
 };

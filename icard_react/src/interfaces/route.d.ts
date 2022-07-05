@@ -8,7 +8,8 @@ export interface RouteConfig {
 }
 
 export interface RouteConfigAdmin extends RouteConfig {
-  icon: SemanticICONS;
-  label: string;
+  icon?: SemanticICONS;
+  label?: string;
   needStaffPermissions: boolean;
+  showInMenu: boolean;
 }

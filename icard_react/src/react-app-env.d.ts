@@ -60,3 +60,23 @@ interface Table {
 interface CreateTable extends Omit<Table, "id"> {}
 
 interface EditTable extends Partial<CreateTable> {}
+
+interface Order {
+  id: ID;
+  status: "PENDING" | "DELIVERED";
+  close: boolean;
+  created_at: Date;
+  table_data: Table;
+  product_data: Product;
+}
+
+interface CreateOrder extends Omit<Order, "id" | "created_at"> {}
+
+interface EditOrder extends Partial<CreateOrder> {}
+
+interface OrderFilter {
+  idTable?: ID | "";
+  status?: Order["status"] | "";
+  close?: Order["close"] | "";
+  order?: "table" | "status" | "close" | "";
+}
