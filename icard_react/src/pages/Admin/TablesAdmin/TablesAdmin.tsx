@@ -3,19 +3,19 @@ import { Loader } from "semantic-ui-react";
 import { toast } from "react-toastify";
 
 import {
-  AddEditCategoryForm,
   HeaderPage,
-  TableCategories,
+  TableTables,
+  AddEditTableForm,
 } from "../../../components/Admin";
 import { BasicModal } from "../../../components/Common";
-import { useCategory } from "../../../hooks";
-import "./CategoriesAdmin.scss";
+import { useTable } from "../../../hooks";
+import "./TablesAdmin.scss";
 
-export const CategoriesAdmin = () => {
+export const TablesAdmin = () => {
   const [titleModal, setTitleModal] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [contentModal, setContentModal] = useState<ReactNode>(<></>);
-  const { getCategories, categories, loading, deleteCategory } = useCategory();
+  const { getTables, tables, loading, deleteTable } = useTable();
   const [reFetch, setReFetch] = useState(false);
 
   const openCloseModal = () => {
@@ -26,36 +26,34 @@ export const CategoriesAdmin = () => {
     setReFetch((prevState) => !prevState);
   };
 
-  const addCategory = () => {
-    setTitleModal("Nueva Categoría");
+  const addTable = () => {
+    setTitleModal("Nueva Mesa");
     setContentModal(
-      <AddEditCategoryForm onClose={openCloseModal} onReFetch={onReFetch} />
+      <AddEditTableForm onClose={openCloseModal} onReFetch={onReFetch} />
     );
     openCloseModal();
   };
 
-  const updateCategory = (category: Category) => {
-    setTitleModal(`Actualizar Categoría: ${category.title}`);
+  const updateTable = (table: Table) => {
+    setTitleModal(`Nueva Mesa: ${table.number}`);
     setContentModal(
-      <AddEditCategoryForm
+      <AddEditTableForm
         onClose={openCloseModal}
         onReFetch={onReFetch}
-        category={category}
+        table={table}
       />
     );
     openCloseModal();
   };
 
-  const onDeleteCategory = async (category: Category) => {
-    const result = window.confirm(
-      `¿Desea eliminar la categoría: ${category.title}?`
-    );
+  const onDeleteTable = async (table: Table) => {
+    const result = window.confirm(`¿Desea eliminar la mesa: ${table.number}?`);
     if (!result) return;
 
     try {
-      await deleteCategory(category.id);
+      await deleteTable(table.id);
       onReFetch();
-      toast.success("Categoría eliminada correctamente.");
+      toast.success("Mesa eliminada correctamente");
     } catch (e) {
       const error = e as Error;
       toast.error(error.message);
@@ -63,25 +61,21 @@ export const CategoriesAdmin = () => {
   };
 
   useEffect(() => {
-    getCategories();
+    getTables();
   }, [reFetch]);
 
   return (
     <>
-      <HeaderPage
-        title={"Categorías"}
-        btnTitle={"Nueva Categoría"}
-        btnClick={addCategory}
-      />
+      <HeaderPage title="Mesas" btnTitle="Nueva Mesa" btnClick={addTable} />
       {loading ? (
         <Loader active inline="centered">
           Cargando...
         </Loader>
       ) : (
-        <TableCategories
-          categories={categories}
-          updateCategory={updateCategory}
-          onDeleteCategory={onDeleteCategory}
+        <TableTables
+          tables={tables}
+          updateTable={updateTable}
+          onDeleteTable={onDeleteTable}
         />
       )}
       <BasicModal

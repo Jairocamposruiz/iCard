@@ -1,7 +1,7 @@
 import { Table, Image, Button, Icon } from "semantic-ui-react";
 import { map } from "lodash";
 
-import "./TableCategory.scss";
+import "./TableCategories.scss";
 
 interface Props {
   categories: Category[];
@@ -9,7 +9,7 @@ interface Props {
   onDeleteCategory: (category: Category) => void;
 }
 
-export const TableCategory = ({
+export const TableCategories = ({
   categories,
   updateCategory,
   onDeleteCategory,

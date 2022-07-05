@@ -51,3 +51,12 @@ interface CreateProduct
 }
 
 interface EditProduct extends Partial<CreateProduct> {}
+
+interface Table {
+  id: ID;
+  number: number;
+}
+
+interface CreateTable extends Omit<Table, "id"> {}
+
+interface EditTable extends Partial<CreateTable> {}

@@ -4,6 +4,7 @@ import {
   UsersAdmin,
   CategoriesAdmin,
   ProductsAdmin,
+  TablesAdmin,
 } from "../pages/Admin";
 import { RouteConfigAdmin } from "../interfaces";
 
@@ -19,7 +20,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
   {
     path: "/admin/tables",
     layout: AdminLayout,
-    component: HomeAdmin,
+    component: TablesAdmin,
     icon: "table",
     label: "Mesas",
     needStaffPermissions: false,

@@ -80,6 +80,7 @@ export const AddEditProductForm = ({ onClose, onReFetch, product }: Props) => {
         error={formik.errors.title}
       />
       <Form.Input
+        label="Precio"
         name="price"
         type="number"
         placeholder="Precio"
