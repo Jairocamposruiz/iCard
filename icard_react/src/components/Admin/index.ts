@@ -13,6 +13,8 @@ export * from "./AddEditUserForm/AddEditUserForm";
 export * from "./AddEditCategoryForm/AddEditCategoryForm";
 export * from "./AddEditProductForm/AddEditProductForm";
 export * from "./AddEditTableForm/AddEditTableForm";
+export * from "./AddOrderForm/AddOrderForm";
 
 export * from "./TableList/TableList";
 export * from "./Table/Table";
+export * from "./ListOrders/ListOrders";

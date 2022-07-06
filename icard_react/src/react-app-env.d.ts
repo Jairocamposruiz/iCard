@@ -45,6 +45,10 @@ interface Product {
   category_data: Category;
 }
 
+interface ProductWithQuantity extends Product {
+  quantity: number;
+}
+
 interface CreateProduct
   extends Omit<Product, "id" | "image" | "category_data"> {
   image: File;
@@ -65,7 +69,7 @@ interface Order {
   id: ID;
   status: "PENDING" | "DELIVERED";
   close: boolean;
-  created_at: Date;
+  created_at: string;
   table_data: Table;
   product_data: Product;
 }
@@ -78,5 +82,13 @@ interface OrderFilter {
   idTable?: ID | "";
   status?: Order["status"] | "";
   close?: Order["close"] | "";
-  order?: "table" | "status" | "close" | "";
+  order?:
+    | "table"
+    | "status"
+    | "close"
+    | "-table"
+    | "-status"
+    | "-close"
+    | "-status,created_at"
+    | "";
 }

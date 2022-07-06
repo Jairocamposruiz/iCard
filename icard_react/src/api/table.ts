@@ -16,6 +16,22 @@ export const getTablesApi = async (token: Token): Promise<Table[]> => {
   }
 };
 
+export const getTableByIdApi = async (id: ID, token: Token): Promise<Table> => {
+  try {
+    const url = `${config.baseApi}/api/tables/${id}/`;
+    const params = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, params);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addTableApi = async (
   data: CreateTable,
   token: Token

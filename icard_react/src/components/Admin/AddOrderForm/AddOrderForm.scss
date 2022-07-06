@@ -1,0 +1,29 @@
+.add-order-form-admin {
+
+  .ui.primary.button {
+    margin-top: 50px;
+  }
+
+  &__list {
+    margin-top: 20px;
+    max-height: 400px !important;
+    overflow-y: auto;
+  }
+
+  &__list-product {
+    display: flex;
+    margin-top: 5px;
+    align-items: center;
+    justify-content: space-between;
+
+    .ui.image {
+      margin-right: 10px !important;
+      width: 60px;
+    }
+
+    span {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  }
+}
