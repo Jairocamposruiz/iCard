@@ -1,0 +1,59 @@
+import { config } from "../config";
+
+export const createPaymentApi = async (data: CreatePayment, token: Token) => {
+  try {
+    const url = `${config.baseApi}/api/payments/`;
+    const params: RequestInit = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(url, params);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPaymentByTableApi = async (idTable: ID): Promise<Payment[]> => {
+  try {
+    const tableFilter = `table=${idTable}`;
+    const statusPaymentFilter = `status_payment=PENDING`;
+    const ordering = "ordering=-created_at";
+
+    const url = `${config.baseApi}/api/payments/?${tableFilter}&${statusPaymentFilter}&${ordering}`;
+
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const closePaymentApi = async (
+  idPayment: ID,
+  token: Token
+): Promise<Payment> => {
+  try {
+    const url = `${config.baseApi}/api/payments/${idPayment}/`;
+    const params: RequestInit = {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status_payment: "PAID",
+      }),
+    };
+
+    const response = await fetch(url, params);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};

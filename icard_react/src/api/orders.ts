@@ -60,3 +60,15 @@ export const addOrderToTableApi = async (
     throw error;
   }
 };
+
+export const deleteOrderApi = async (idOrder: ID) => {
+  try {
+    const url = `${config.baseApi}/api/orders/${idOrder}`;
+    const params = {
+      method: "DELETE",
+    };
+    await fetch(url, params);
+  } catch (error) {
+    throw error;
+  }
+};

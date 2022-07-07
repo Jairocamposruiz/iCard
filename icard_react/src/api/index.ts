@@ -3,3 +3,4 @@ export * from "./category";
 export * from "./product";
 export * from "./table";
 export * from "./orders";
+export * from "./payment";

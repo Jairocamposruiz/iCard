@@ -1,0 +1,17 @@
+.create-payment-form-admin {
+
+  &__total {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+
+    span {
+      margin-left: 20px;
+      font-weight: bolder;
+    }
+  }
+
+  .ui.primary.button {
+    margin-top: 50px;
+  }
+}

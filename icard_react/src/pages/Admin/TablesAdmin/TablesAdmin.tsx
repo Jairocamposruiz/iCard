@@ -15,8 +15,9 @@ export const TablesAdmin = () => {
   const [titleModal, setTitleModal] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [contentModal, setContentModal] = useState<ReactNode>(<></>);
-  const { getTables, tables, loading, deleteTable } = useTable();
   const [reFetch, setReFetch] = useState(false);
+
+  const { getTables, tables, loading, deleteTable } = useTable();
 
   const openCloseModal = () => {
     setShowModal((prevState) => !prevState);

@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { getOrdersApi, editOrderApi, addOrderToTableApi } from "../api";
+import {
+  getOrdersApi,
+  editOrderApi,
+  addOrderToTableApi,
+  deleteOrderApi,
+} from "../api";
 
 export const useOrders = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,6 +33,7 @@ export const useOrders = () => {
       const response = await getOrdersApi({
         idTable,
         status: "PENDING",
+        close: false,
       });
       setOrdersPending(response);
       setLoading(false);
@@ -44,6 +50,7 @@ export const useOrders = () => {
       const response = await getOrdersApi({
         idTable,
         status: "DELIVERED",
+        close: false,
       });
       setOrdersDelivered(response);
       setLoading(false);
@@ -85,7 +92,25 @@ export const useOrders = () => {
     });
   };
 
-  const deleteOrder = async () => {};
+  const addPaymentToOrders = async (idPayment: ID, orders: Order[]) => {
+    orders.forEach((order) => {
+      editOrder(order.id, {
+        payment: idPayment,
+      });
+    });
+  };
+
+  const deleteOrder = async (id: ID) => {
+    try {
+      setLoading(true);
+      await deleteOrderApi(id);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
 
   return {
     loading,
@@ -100,5 +125,6 @@ export const useOrders = () => {
     editOrder,
     deleteOrder,
     checkDeliveredOrder,
+    addPaymentToOrders,
   };
 };

@@ -72,6 +72,7 @@ interface Order {
   created_at: string;
   table_data: Table;
   product_data: Product;
+  payment?: ID;
 }
 
 interface CreateOrder extends Omit<Order, "id" | "created_at"> {}
@@ -92,3 +93,16 @@ interface OrderFilter {
     | "-status,created_at"
     | "";
 }
+
+interface Payment {
+  id: ID;
+  table: ID;
+  table_data: Table;
+  total_payment: number;
+  payment_type: "CARD" | "CASH";
+  status_payment: "PENDING" | "PAID";
+  created_at: string;
+}
+
+interface CreatePayment
+  extends Omit<Payment, "id" | "created_at" | "table_data"> {}

@@ -28,10 +28,15 @@ interface OrderItemProps {
 }
 
 const OrderItem = ({ order, onReload }: OrderItemProps) => {
-  const { checkDeliveredOrder } = useOrders();
+  const { checkDeliveredOrder, deleteOrder } = useOrders();
 
   const onCheckDelivered = async () => {
     await checkDeliveredOrder(order.id);
+    onReload();
+  };
+
+  const onDeleteOrder = async () => {
+    await deleteOrder(order.id);
     onReload();
   };
 
@@ -52,9 +57,14 @@ const OrderItem = ({ order, onReload }: OrderItemProps) => {
       </div>
 
       {order.status === "PENDING" && (
-        <Button primary onClick={onCheckDelivered}>
-          Marcar Entregado
-        </Button>
+        <div>
+          <Button primary onClick={onCheckDelivered}>
+            Marcar Entregado
+          </Button>
+          <Button onClick={onDeleteOrder} color="red">
+            Borrar
+          </Button>
+        </div>
       )}
     </div>
   );

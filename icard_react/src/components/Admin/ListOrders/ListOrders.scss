@@ -4,7 +4,8 @@
 
 .order-item-admin {
   position: relative;
-  border: 1px solid #000;
+  border: 2px solid #000;
+  border-radius: 8px;
   padding: 20px;
   margin: 50px 0;
   display: flex;
@@ -25,7 +26,8 @@
     right: 10px;
     background-color: #fff;
     padding: 5px 20px;
-    border: 1px solid #000;
+    border: 2px solid #000;
+    border-radius: 4px;
   }
 
   &__product {
