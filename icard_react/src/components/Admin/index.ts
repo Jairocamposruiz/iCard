@@ -8,6 +8,7 @@ export * from "./TableUsers/TableUsers";
 export * from "./TableCategories/TableCategories";
 export * from "./TableProducts/TableProducts";
 export * from "./TableTables/TableTables";
+export * from "./TablePayments/TablePayments";
 
 export * from "./AddEditUserForm/AddEditUserForm";
 export * from "./AddEditCategoryForm/AddEditCategoryForm";
@@ -20,3 +21,4 @@ export * from "./TableList/TableList";
 export * from "./Table/Table";
 export * from "./ListOrders/ListOrders";
 export * from "./AccountDetails/AccountDetails";
+export * from "./PaymentProductsList/PaymentProductsList";

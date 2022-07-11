@@ -6,6 +6,7 @@ import {
   ProductsAdmin,
   TablesAdmin,
   TableDetailsAdmin,
+  PaymentHistory,
 } from "../pages/Admin";
 import { RouteConfigAdmin } from "../interfaces";
 
@@ -31,7 +32,7 @@ export const routesAdmin: RouteConfigAdmin[] = [
   {
     path: "/admin/payments-history",
     layout: AdminLayout,
-    component: OrdersAdmin,
+    component: PaymentHistory,
     icon: "history",
     label: "Historial de pagos",
     needStaffPermissions: false,

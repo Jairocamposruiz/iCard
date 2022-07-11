@@ -5,14 +5,16 @@ export const getOrdersApi = async ({
   status = "",
   close = "",
   order = "",
+  payment = "",
 }: OrderFilter): Promise<Order[]> => {
   try {
     const tableFilter = `table=${idTable}`;
     const statusFilter = `status=${status}`;
     const closeFilter = `close=${close}`;
+    const paymentFilter = `payment=${payment}`;
     const ordering = `ordering=${order}`;
 
-    const url = `${config.baseApi}/api/orders/?${tableFilter}&${statusFilter}&${closeFilter}&${ordering}`;
+    const url = `${config.baseApi}/api/orders/?${tableFilter}&${statusFilter}&${closeFilter}&${paymentFilter}&${ordering}`;
     const response = await fetch(url);
     return await response.json();
   } catch (error) {

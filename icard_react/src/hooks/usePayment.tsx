@@ -4,11 +4,13 @@ import {
   createPaymentApi,
   getPaymentByTableApi,
   closePaymentApi,
+  getPaymentsApi,
 } from "../api";
 import { useAuth } from "../context";
 import { useOrders } from "./useOrders";
 
 export const usePayment = () => {
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const [payments, setPayments] = useState<Payment[]>([]);
   const { auth } = useAuth();
@@ -20,6 +22,19 @@ export const usePayment = () => {
     } catch (e) {
       const error = e as Error;
       setError(error);
+    }
+  };
+
+  const getPayments = async () => {
+    try {
+      setLoading(true);
+      const response = await getPaymentsApi();
+      setPayments(response);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setError(error);
+      setLoading(false);
     }
   };
 
@@ -48,8 +63,10 @@ export const usePayment = () => {
 
   return {
     error,
+    loading,
     payments,
     createPayment,
+    getPayments,
     getPaymentByTable,
     closePayment,
   };

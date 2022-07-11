@@ -19,6 +19,18 @@ export const createPaymentApi = async (data: CreatePayment, token: Token) => {
   }
 };
 
+export const getPaymentsApi = async (): Promise<Payment[]> => {
+  try {
+    const statusPaymentFilter = "status_payment=PAID";
+    const ordering = "ordering=-created_at";
+    const url = `${config.baseApi}/api/payments/?${statusPaymentFilter}&${ordering}`;
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getPaymentByTableApi = async (idTable: ID): Promise<Payment[]> => {
   try {
     const tableFilter = `table=${idTable}`;

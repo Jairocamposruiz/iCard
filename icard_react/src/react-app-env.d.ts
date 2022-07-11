@@ -83,6 +83,7 @@ interface OrderFilter {
   idTable?: ID | "";
   status?: Order["status"] | "";
   close?: Order["close"] | "";
+  payment?: ID | "";
   order?:
     | "table"
     | "status"
