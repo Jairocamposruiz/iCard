@@ -1,12 +1,11 @@
 import { config } from "../config";
 
-export const createPaymentApi = async (data: CreatePayment, token: Token) => {
+export const createPaymentApi = async (data: CreatePayment) => {
   try {
     const url = `${config.baseApi}/api/payments/`;
     const params: RequestInit = {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
@@ -46,16 +45,12 @@ export const getPaymentByTableApi = async (idTable: ID): Promise<Payment[]> => {
   }
 };
 
-export const closePaymentApi = async (
-  idPayment: ID,
-  token: Token
-): Promise<Payment> => {
+export const closePaymentApi = async (idPayment: ID): Promise<Payment> => {
   try {
     const url = `${config.baseApi}/api/payments/${idPayment}/`;
     const params: RequestInit = {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

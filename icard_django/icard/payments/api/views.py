@@ -1,5 +1,4 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -8,7 +7,6 @@ from .serializers import PaymentSerializer
 
 
 class PaymentApiViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]

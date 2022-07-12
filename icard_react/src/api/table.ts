@@ -1,13 +1,14 @@
 import { config } from "../config";
 
-export const getTablesApi = async (token: Token): Promise<Table[]> => {
+export const getTablesApi = async ({
+  number = "",
+}: TableFilter): Promise<Table[]> => {
   try {
-    const url = `${config.baseApi}/api/tables/`;
+    const filterNumber = `number=${number}`;
+
+    const url = `${config.baseApi}/api/tables/?${filterNumber}`;
     const params = {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     };
     const response = await fetch(url, params);
     return await response.json();
@@ -16,14 +17,11 @@ export const getTablesApi = async (token: Token): Promise<Table[]> => {
   }
 };
 
-export const getTableByIdApi = async (id: ID, token: Token): Promise<Table> => {
+export const getTableByIdApi = async (id: ID): Promise<Table> => {
   try {
     const url = `${config.baseApi}/api/tables/${id}/`;
     const params = {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     };
     const response = await fetch(url, params);
     return await response.json();

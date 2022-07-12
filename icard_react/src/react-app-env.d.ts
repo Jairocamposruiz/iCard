@@ -75,6 +75,10 @@ interface Order {
   payment?: ID;
 }
 
+interface TableFilter {
+  number?: number | "";
+}
+
 interface CreateOrder extends Omit<Order, "id" | "created_at"> {}
 
 interface EditOrder extends Partial<CreateOrder> {}
@@ -92,6 +96,7 @@ interface OrderFilter {
     | "-status"
     | "-close"
     | "-status,created_at"
+    | "-status,-created_at"
     | "";
 }
 

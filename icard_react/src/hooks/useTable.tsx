@@ -19,7 +19,7 @@ export const useTable = () => {
   const getTables = async () => {
     try {
       setLoading(true);
-      const response = await getTablesApi(auth!.token);
+      const response = await getTablesApi({});
       setTables(response);
       setLoading(false);
     } catch (e) {
@@ -32,7 +32,7 @@ export const useTable = () => {
   const getTableById = async (id: ID) => {
     try {
       setLoading(true);
-      const response = await getTableByIdApi(id, auth!.token);
+      const response = await getTableByIdApi(id);
       setTable(response);
       setLoading(false);
     } catch (e) {
@@ -78,6 +78,35 @@ export const useTable = () => {
     }
   };
 
+  const existTable = async (numberTable: number) => {
+    try {
+      setLoading(true);
+      const response = await getTablesApi({ number: numberTable });
+      setLoading(false);
+      return response.length > 0;
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const getTableByNumber = async (numberTable: number) => {
+    try {
+      setLoading(true);
+      const response = await getTablesApi({ number: numberTable });
+      setLoading(false);
+      if (response.length === 0) {
+        throw new Error("No existe la mesa");
+      }
+      return response[0];
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return {
     loading,
     error,
@@ -88,5 +117,7 @@ export const useTable = () => {
     editTable,
     deleteTable,
     getTableById,
+    existTable,
+    getTableByNumber,
   };
 };

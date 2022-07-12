@@ -2,9 +2,12 @@ import { useState } from "react";
 
 import {
   getProductsApi,
+  getProductApi,
   addProductApi,
   editProductApi,
   deleteProductApi,
+  getActiveProductsApi,
+  getProductsByCategoryApi,
 } from "../api";
 import { useAuth } from "../context";
 
@@ -20,6 +23,19 @@ export const useProduct = () => {
       const response = await getProductsApi();
       setProducts(response);
       setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const getProduct = async (id: ID) => {
+    try {
+      setLoading(true);
+      const response = await getProductApi(id);
+      setLoading(false);
+      return response;
     } catch (e) {
       const error = e as Error;
       setLoading(false);
@@ -63,13 +79,43 @@ export const useProduct = () => {
     }
   };
 
+  const getActiveProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await getActiveProductsApi();
+      console.log(response);
+      setProducts(response);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const getProductsByCategory = async (categoryId: ID) => {
+    try {
+      setLoading(true);
+      const response = await getProductsByCategoryApi(categoryId);
+      setProducts(response);
+      setLoading(false);
+    } catch (e) {
+      const error = e as Error;
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return {
     loading,
     error,
     products,
     getProducts,
+    getProduct,
     addProduct,
     editProduct,
     deleteProduct,
+    getActiveProducts,
+    getProductsByCategory,
   };
 };

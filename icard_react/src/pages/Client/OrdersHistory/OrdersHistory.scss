@@ -1,0 +1,16 @@
+.orders-history-client {
+
+
+
+  &__total {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__message {
+    background-color: rgb(17, 133, 201);
+    color: #ffffff;
+    padding: 8px 10px;
+    border-radius: 4px;
+  }
+}

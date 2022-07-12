@@ -10,6 +10,27 @@ export const getProductsApi = async (): Promise<Product[]> => {
   }
 };
 
+export const getProductApi = async (id: ID): Promise<Product> => {
+  try {
+    const url = `${config.baseApi}/api/products/${id}/`;
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getActiveProductsApi = async (): Promise<Product[]> => {
+  try {
+    const activeFilter = `active=true`;
+    const url = `${config.baseApi}/api/products/?${activeFilter}`;
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addProductApi = async (
   data: CreateProduct,
   token: Token
@@ -78,6 +99,19 @@ export const deleteProductApi = async (id: ID, token: Token) => {
     };
 
     const response = await fetch(url, params);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProductsByCategoryApi = async (categoryId: ID) => {
+  try {
+    const categoryFilter = `category=${categoryId}`;
+    const activeFilter = `active=True`;
+
+    const url = `${config.baseApi}/api/products/?${categoryFilter}&${activeFilter}`;
+    const response = await fetch(url);
     return await response.json();
   } catch (error) {
     throw error;

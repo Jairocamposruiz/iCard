@@ -18,7 +18,7 @@ export const usePayment = () => {
 
   const createPayment = async (data: CreatePayment) => {
     try {
-      return await createPaymentApi(data, auth!.token);
+      return await createPaymentApi(data);
     } catch (e) {
       const error = e as Error;
       setError(error);
@@ -50,7 +50,7 @@ export const usePayment = () => {
 
   const closePayment = async (idPayment: ID, orders: Order[]) => {
     try {
-      await closePaymentApi(idPayment, auth!.token);
+      await closePaymentApi(idPayment);
 
       orders.forEach((order) => {
         editOrder(order.id, { close: true });

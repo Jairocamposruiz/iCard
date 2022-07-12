@@ -18,7 +18,7 @@ export const AddOrderForm = ({
   openCloseModal,
   onReloadOrders,
 }: Props) => {
-  const { products, getProducts } = useProduct();
+  const { products, getActiveProducts } = useProduct();
   const { addOrdersToTable } = useOrders();
   const [productsFormat, setProductsFormat] = useState<
     { text: string; value: number; key: number }[]
@@ -103,7 +103,7 @@ export const AddOrderForm = ({
   };
 
   useEffect(() => {
-    getProducts();
+    getActiveProducts();
   }, []);
 
   useEffect(() => {
