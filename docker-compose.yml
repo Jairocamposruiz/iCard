@@ -1,0 +1,67 @@
+version: "3.9"
+services:
+
+  djangoapp:
+    container_name: djangoapp
+    build: ./icard_django
+    expose:
+      - "8000"
+    volumes:
+      - ./backend-app:/usr/src/app
+
+  reactapp:
+    container_name: reactapp
+    build: ./icard_react
+    expose:
+      - "3000"
+    volumes:
+      - ./frontend-app:/usr/src/app
+    environment:
+      - REACT_APP_BASE_API=https://icard.jcoder.es
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "80"
+    links:
+      - expressapp
+      - reactapp
+      - nginx-proxy
+      - letsencrypt
+    environment:
+      - VIRTUAL_HOST=icard.jcoder.es,www.icard.jcoder.es
+      - LETSENCRYPT_HOST=icard.jcoder.es,www.icard.jcoder.es
+    restart: always
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs:ro
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    container_name: letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+
+volumes:
+  certs:
+  html:
+  vhostd:
