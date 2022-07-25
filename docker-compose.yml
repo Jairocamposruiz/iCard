@@ -1,4 +1,3 @@
-version: "3.9"
 services:
 
   djangoapp:
@@ -6,26 +5,66 @@ services:
     build: ./icard_django
     expose:
       - "8000"
-    volumes:
-      - ./backend-app:/usr/src/app
+    environment:
+      - SECRET_KEY=5mPs524WDX4*d!@kJzpjH@$gzaGQtBtu3A8XNSkVNT*#8BLaTwfX9sNSqcj%cALLfvuPb^dU!EjJ#aSA^nfXQdKChMHuCPc9*u
+    restart: always
+    profiles:
+      - production
+      - development
+    networks:
+      - app-network
 
   reactapp:
     container_name: reactapp
     build: ./icard_react
     expose:
       - "3000"
-    volumes:
-      - ./frontend-app:/usr/src/app
     environment:
       - REACT_APP_BASE_API=https://icard.jcoder.es
+    restart: always
+    profiles:
+      - production
+    networks:
+      app-network:
+        aliases:
+          - reactapp
+
+  reactapp_development:
+    container_name: reactapp
+    build: ./icard_react
+    expose:
+      - "3000"
+    environment:
+      - REACT_APP_BASE_API=http://localhost
+    restart: always
+    profiles:
+      - development
+    networks:
+      app-network:
+        aliases:
+          - reactapp
+
+  nginx_development:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - djangoapp
+      - reactapp
+    restart: always
+    profiles:
+      - development
+    networks:
+      - app-network
 
   nginx:
     container_name: nginx
     build: ./nginx
-    ports:
+    expose:
       - "80"
     links:
-      - expressapp
+      - djangoapp
       - reactapp
       - nginx-proxy
       - letsencrypt
@@ -33,6 +72,10 @@ services:
       - VIRTUAL_HOST=icard.jcoder.es,www.icard.jcoder.es
       - LETSENCRYPT_HOST=icard.jcoder.es,www.icard.jcoder.es
     restart: always
+    profiles:
+      - production
+    networks:
+      - app-network
 
   nginx-proxy:
     container_name: nginx-proxy
@@ -48,6 +91,10 @@ services:
       - html:/usr/share/nginx/html
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+    profiles:
+      - production
+    networks:
+      - app-network
 
   letsencrypt:
     container_name: letsencrypt
@@ -60,8 +107,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - vhostd:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
+    profiles:
+      - production
+    networks:
+      - app-network
 
 volumes:
   certs:
   html:
   vhostd:
+
+networks:
+  app-network:

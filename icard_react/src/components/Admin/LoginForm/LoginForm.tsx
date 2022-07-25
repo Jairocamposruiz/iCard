@@ -50,8 +50,8 @@ export const LoginForm = () => {
 
 const initialValues = () => {
   return {
-    email: "Jairo@gmail.com",
-    password: "Jairo123456",
+    email: "",
+    password: "",
   };
 };
 

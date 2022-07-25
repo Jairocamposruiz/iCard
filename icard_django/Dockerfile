@@ -6,14 +6,10 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install
+RUN pip install -r requirements.txt
 
-ENV PORT=3001
+EXPOSE 8000
 
-ENV CONNECTION_DB=mongodb+srv://socket_chat:AYjEl7kyodl0JjcJ@cluster0.v06wa.mongodb.net/appBlog
+WORKDIR /app/icard
 
-ENV SECRET_JWT=aTTC*cFK*WL8xUP3eivrzVtQK3XrskcEV*x@UQ7zabAgcopb*&*2chCYknRQf8fBzHumNofVKVQd6XJjWc*!n!PqkQQYwirXHao9
-
-EXPOSE 3001
-
-CMD ["npm", "start"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
